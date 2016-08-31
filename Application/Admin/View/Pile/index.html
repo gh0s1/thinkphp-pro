@@ -1,0 +1,107 @@
+<include file="Public/header" title="后台主页" />
+
+        <div id="page-wrapper">
+        	
+           <div class="row">
+                <div class="col-lg-12">
+                        <a href="{:U('pile/edit')}" class="btn btn-success">添加</a>
+                </div>
+            </div>
+        	
+            <div class="row" style="margin-top:20px;">
+                <div class="col-lg-12">
+        		<table class="table">
+                               <thead>
+                                  <tr>
+                                     <th>充电桩名称</th>
+                                     <th>位置</th>
+                                     <th>经度</th>
+                                     <th>纬度</th>
+                                     <th>标注类型</th> 
+                                     <th>报错</th>
+                                     <th>点赞</th>
+                                     <th>状态</th>
+                                     <th>添加时间</th>
+                                     <th>操作</th>
+                                  </tr>
+                               </thead>
+                               <tbody>
+                                  
+                                  <?php
+                                        foreach($lists as $val):
+                                  ?>
+                                  <tr>
+                                     <td>{$val['pilename']}</td>
+                                     <td>{$val['positions']}</td>
+                                     <td>{$val['lng']}</td>
+                                     <td>{$val['lat']}</td>
+                                     <td>
+                                            <?php
+                                                  $type_id = $val['type'];
+
+                                                  $map_type = M("map_type");
+
+                                                  $info = $map_type->where(array("id"=>$type_id))->find();
+
+                                                  echo $info['type'];
+                                            ?>
+                                     </td>
+
+                                     <td>{$val['error']}</td>
+                                     <td>{$val['likes']}</td>
+                                     <td>
+                                            <?php
+                                                  if($val['status'] == 0):
+                                            ?>
+                                                  不可用
+                                            <?php
+                                                elseif($val['status'] == 1):
+                                            ?>
+                                                  正常
+                                            <?php
+                                                endif;
+                                            ?>
+                                     </td>
+                                     
+                                     <td>
+                                          <?php
+                                              echo date("Y-m-d",$val['posttime']);
+                                          ?>
+                                     </td>
+                                     
+                                     <td>
+                                            <a href="{:U('pile/edit')}&flag=edit&id={$val['id']}">编辑</a>
+                                            |
+											<a href="{:U('pile/sets')}&flag=del&id={$val['id']}">删除</a>
+											|
+                                            <?php
+                                                if($val['status'] == 1):
+                                            ?>
+                                            <a href="{:U('pile/sets')}&flag=deny&id={$val['id']}" style="color:red">禁用</a>
+                                            <?php
+                                                elseif($val['status'] == 0):
+                                            ?>
+                                            <a href="{:U('pile/sets')}&flag=allow&id={$val['id']}">恢复使用</a>
+                                            <?php
+                                                endif;
+                                            ?>
+                                     </td>
+                                  </tr>
+                                  <?php
+                                      endforeach;
+                                  ?>
+
+                               </tbody>
+                        </table>		
+                </div>
+            </div>
+
+            <div class="row">
+                <ul class="pagination">
+                    {$page_list}
+                </ul>
+            </div>
+
+    </div>
+
+<include file="Public/footer" />

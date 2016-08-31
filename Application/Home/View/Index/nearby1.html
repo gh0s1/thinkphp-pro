@@ -1,0 +1,321 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+        附近
+    </title>
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit" />
+    <!-- No Baidu Siteapp -->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="__PUBLIC__/assets/i/favicon.png" />
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="icon" sizes="192x192" href="__PUBLIC__/assets/i/app-icon72x72@2x.png" />
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="apple-touch-icon-precomposed" href="__PUBLIC__/assets/i/app-icon72x72@2x.png" />
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png" />
+    <meta name="msapplication-TileColor" content="#0e90d2" />
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/app.css" />
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/style.css" />
+    <script src="__PUBLIC__/assets/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=pSMU9ATyDa8KCUAhAonEFMhGwPGfdsrR"></script>
+	<div <?php if($flag == 'myposition'):?> style="position:fixed;display:none" <?php else:?>  style="position:fixed" <?php endif;?>id="allmap" data-am-widget="map" class="" data-name="" data-address="" data-longitude="" data-latitude="" data-scaleControl="" data-zoomControl="true" data-setZoom="17" data-icon="http://amuituku.qiniudn.com/mapicon.png">
+        <div id="bd-map"></div>
+    </div>
+	<script>
+		function nav(lat,lng,title,content,mylat,mylng){
+			/*
+			var url = "http://api.map.baidu.com/marker?location="+lat+","+lng+"&title="+title+"&content="+content+"&output=html"
+			location.href=url;
+			*/
+			var url = "http://api.map.baidu.com/direction?origin=latlng:"+mylat+","+mylng+"|name:&destination=latlng:"+lat+","+lng+"|name:"+content+"&mode=driving&region=青岛市&output=html&src=ezr";
+			location.href=url;
+		}
+	</script>
+
+	
+	<style>
+		.m 
+		{
+			width: 40px;
+			height:15px;
+			line-height:15px;
+			font-size:12px;
+			text-align:center
+		}
+		
+		.b 
+		{
+			height: 85px;
+			border-bottom: solid 1px #a9a9a9
+		}
+	</style>
+	
+
+	<div class="am-g">
+		<?php
+			foreach($rs as $val):
+		?>
+		  <a class="rows" lng="{$val['lng']}" lat="{$val['lat']}" pilename="{$val['pilename']}" imgurl="{$val['imgurl']}" addr="{$val['positions']}">
+			  <div class="am-u-sm-6 b">
+					<span class="am-icon-map-marker v" style="margin-top:24px"></span> 
+					<font class="qmAuto v">
+						{$val['pilename']}
+						<font style="font-size:12px;color:red">({$val['type']})</font>
+					</font>
+					<p style="margin-left:10px;margin-top:2px;font-size:11px;">{$val['positions']}</p> 
+					
+			  </div>
+				
+			  <div class="am-u-sm-5 b">
+					<ul style="float:left;margin-top:15px;margin-left:-40px;list-style:none;"> 
+						<style>
+							li   
+							{
+								margin-top:4px;
+							}
+							
+							.as 
+							{
+								width: 45px; 
+								height:27px;
+								line-height:25px;
+							}
+							.am-badge 
+							{
+								line-height:1.6
+							}
+						</style>
+						<li>
+							<a class="am-badge am-badge-success am-badge-xs am-round as" href="{:U('Index/set')}&flag=likes&id={$val['id']}"><span>点赞</span></a>
+						</li>
+						<li> 
+							<a class="am-badge am-badge-danger am-badge-xs  am-round as" href="{:U('Index/set')}&flag=error&id={$val['id']}"><span>报错</span></a>
+						</li>
+					</ul>
+					
+					<ul style="float:left;margin-top:25px;margin-left:-20px;list-style:none">
+						<li>
+							<a class="am-btn am-btn-warning am-round" href="javascript:void(0)" onclick="nav({$val['lat']},{$val['lng']},'{$val['pilename']}','{$val['positions']}',{$myLat},{$myLng})">
+								<span>导航</span>
+							</a>
+						</li>
+					</ul>
+		  
+			  </div>
+			  
+			  <div class="am-u-sm-1 b" style="white-spacing:nowrap">
+				<font style="float:right;margin-top:34px;margin-right:-10px;color:#727272">
+					<?php
+						$km = "km";
+						$m = "m";
+						if($val['distance'] >= 1000) {
+							
+							echo number_format(($val['distance'] / 1000),1).$km; 
+						}
+						
+						if($val['distance'] <= 100){
+							
+							echo "<100m"; 
+						}
+						
+						
+						if($val['distance'] > 100 && $val['distance'] < 1000){
+						
+							echo number_format($val['distance'],1).$m;
+						}
+							
+					?> 
+				</font>
+			  </div>
+		  </a>
+		<?php
+			endforeach;
+		?>
+		
+	</div>
+
+	<div class="am-g">
+		 <div class="am-u-sm-12">
+			<ul class="am-pagination"> 
+				{$page_list}
+			</ul>
+		 </div>
+	</div>
+
+    <script src="__PUBLIC__/assets/js/amazeui.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            resize();
+            $(window).resize(function(){
+                resize();
+            });
+        });
+        function resize(){
+            
+            $('#allmap').css('height',$(window).height()-290);
+        }
+    </script>
+
+    <?php
+        if($flag == 'myposition'):
+    ?>
+    <script>
+            var map = new BMap.Map("allmap");
+            map.centerAndZoom("青岛",16);
+
+            var geolocation = new BMap.Geolocation();
+            
+            geolocation.getCurrentPosition(
+                function(r){
+                    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                        var mk = new BMap.Marker(r.point);
+                        map.addOverlay(mk);
+                        map.panTo(r.point);
+                        mylng = r.point.lng;
+                        mylat = r.point.lat;
+                        var url = "{:U('index/nearby')}&flag=nearby&pos=false"+"&mylng="+mylng+"&mylat="+mylat;
+                        location.href = url; 
+                        
+                    }
+                    else {
+                        alert('failed'+this.getStatus());
+                    }        
+                },
+                {enableHighAccuracy: true}
+            );
+    </script>
+    <?php
+            elseif($flag == 'nearby'):
+    ?>
+    <script>
+			$(function(){
+				// 百度地图API功能
+				var map = new BMap.Map("allmap");
+				
+				var myLng = {$myLng};
+				var myLat = {$myLat};
+				$(".rows").click(function(){
+					var mylng = $(this).attr('lng');
+					var mylat = $(this).attr('lat');
+					var pilename = $(this).attr('pilename');
+					//var imgurl = $(this).attr('imgurl');
+					var addr = $(this).attr("addr");
+					var url = "{:U('index/nearby')}&flag=nearby&pos=true"+"&mylng="+mylng+"&mylat="+mylat+"&pilename="+pilename+"&addr="+addr;
+                    location.href = url; 
+				});
+				
+				var mypoint = new BMap.Point(myLng,myLat);
+				
+				var pos = {$pos};
+				
+				if(pos == 0)
+				{
+					var myIcon = new BMap.Icon("__STATIC__/images/car.png", new BMap.Size(30,30));
+					var mymarker = new BMap.Marker(mypoint,{icon:myIcon});  // 创建标注 
+				}
+				
+				map.addOverlay(mymarker);              // 将标注添加到地图中
+				map.centerAndZoom(mypoint, 15);
+				map.enableScrollWheelZoom();
+				
+				//var pos = {$pos};
+				if(pos == 1)
+				{
+					var myopts = {
+						width : 60,     // 信息窗口宽度
+						height: 40,     // 信息窗口高度
+						title : "当前位置定位为:" , // 信息窗口标题
+						enableMessage:true,//设置允许信息窗发送短息
+						message:""
+					}
+
+					var myinfoWindow = new BMap.InfoWindow("{$addr} : {$pilename}", myopts);
+					// 创建信息窗口对象 
+					map.openInfoWindow(myinfoWindow,mypoint); //开启信息窗口
+					
+				}
+				
+				
+				var points = eval({$points});
+				var data_info = new Array();
+
+				for(i=0;i<points.length;i++){
+					data_info[i] = new Array();
+					k=0;
+					for(j in points[i])
+					{
+						if(j == 'lng' || j == 'lat')
+						{
+							data_info[i][k] = parseFloat(points[i][j]);
+						}
+						else
+						{
+							data_info[i][k] = points[i][j];
+						}
+						
+						k++;
+					}   
+				}
+				
+
+				var opts = 
+				{
+							width : 250,     // 信息窗口宽度
+							height: 80,     // 信息窗口高度
+							title : "信息窗口" , // 信息窗口标题
+							enableMessage:true//设置允许信息窗发送短息
+				};
+
+
+
+				for(var i=0;i<data_info.length;i++)
+				{
+						var pt = new BMap.Point(data_info[i][0],data_info[i][1]);
+						var myIcon = new BMap.Icon("http://lxc.weixinmingpai.com/"+data_info[i][3], new BMap.Size(30,30));
+						
+						var marker = new BMap.Marker(pt,{icon:myIcon});  // 创建标注 
+						//var marker = new BMap.Marker(pt);
+						var content = data_info[i][4]+" : "+data_info[i][2];
+						map.addOverlay(marker);               // 将标注添加到地图中
+						addClickHandler(content,marker);
+				} 
+
+				function addClickHandler(content,marker)
+				{
+					marker.addEventListener("click",function(e){
+						openInfo(content,e)}
+					);
+				}
+
+				function openInfo(content,e)
+				{
+					var p = e.target;
+					var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+					var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+					map.openInfoWindow(infoWindow,point); //开启信息窗口
+				}
+			
+			});
+    </script>
+    <?php
+        endif;
+    ?>
+</body>
+
+</html>

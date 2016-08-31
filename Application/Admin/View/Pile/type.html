@@ -1,0 +1,48 @@
+<include file="Public/header" title="后台主页" />
+
+        <div id="page-wrapper">
+        	<!--
+           <div class="row">
+                <div class="col-lg-12">
+                        <a href="{:U('pile/edit')}" class="btn btn-success">添加</a>
+                </div>
+            </div>
+        	-->
+            <div class="row" style="/*margin-top:20px;*/">
+                <div class="col-lg-12">
+        		<table class="table">
+                               <thead>
+                                  <tr>
+                                     <th>类型</th>
+                                     <th>标注图标</th>
+                                     <th>操作</th>
+                                  </tr>
+                               </thead>
+                               <tbody>
+                                  <?php
+                                      foreach($list as $val):
+                                  ?>
+                                  <tr>
+                                     <td>{$val['type']}</td>
+                                     
+                                     <td>
+                                            <img src="{$val['imgurl']}" style="width:40px;height:40px;">
+                                     </td>
+                                     
+                                     <td>
+                                            <a href="{:U('pile/type')}&flag=edit&id={$val['id']}">编辑</a>
+                                            |
+                                            <a href="{:U('pile/type')}&flag=del&id={$val['id']}">删除</a>
+                                     </td>
+                                  </tr>
+                                  <?php
+                                      endforeach;
+                                  ?>
+                               </tbody>
+                        </table>		
+                </div>
+            </div>
+
+    </div>
+
+<include file="Public/footer" />

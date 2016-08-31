@@ -1,0 +1,60 @@
+[ 2016-07-14T10:57:58+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error: 1364 Field 'pilename' doesn't have a default value
+
+[ 2016-07-14T10:58:35+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error: 1364 Field 'pilename' doesn't have a default value
+
+[ 2016-07-14T10:58:38+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error: 1364 Field 'pilename' doesn't have a default value
+
+[ 2016-07-14T11:01:50+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:03:10+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:03:20+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:03:54+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'PRIMARY'
+
+[ 2016-07-14T11:04:45+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:07:02+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:08:19+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:08:48+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:09:01+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:10:21+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:18:58+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:22:19+08:00 ] 112.224.69.231 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:22:26+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:23:22+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value
+
+[ 2016-07-14T11:23:36+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[HY000]: General error
+
+[ 2016-07-14T11:26:12+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: Think\Model:deleteAll方法不存在！
+
+[ 2016-07-14T11:26:22+08:00 ] 140.246.109.212 /index.php?m=&c=index&a=lists
+ERR: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'PRIMARY'
+

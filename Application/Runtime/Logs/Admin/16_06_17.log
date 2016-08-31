@@ -1,0 +1,30 @@
+[ 2016-06-17T09:40:32+08:00 ] 182.40.180.223 /admin.php?m=admin&c=user&a=ctrl
+ERR: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1' for key 'PRIMARY'
+
+[ 2016-06-17T14:07:32+08:00 ] 182.40.180.223 /admin.php?m=admin&c=order&a=export&order_num=1FYiYp7wGSzjvg7l8pOulGdWMcwpDxPu
+ERR: 非法操作:export
+
+[ 2016-06-17T14:07:43+08:00 ] 182.40.180.223 /admin.php?m=admin&c=order&a=export&order_num=1FYiYp7wGSzjvg7l8pOulGdWMcwpDxPu
+ERR: 非法操作:export
+
+[ 2016-06-17T14:07:58+08:00 ] 182.40.180.223 /admin.php?m=admin&c=order&a=export&order_num=1FYiYp7wGSzjvg7l8pOulGdWMcwpDxPu
+ERR: 非法操作:export
+
+[ 2016-06-17T14:17:29+08:00 ] 182.40.180.223 /admin.php?m=admin&c=order&a=exportExcel
+ERR: 参数错误或者未定义:expTitle
+
+[ 2016-06-17T14:43:01+08:00 ] 182.40.180.223 /admin.php?m=admin&c=order&a=exports&order_num=1FYiYp7wGSzjvg7l8pOulGdWMcwpDxPu
+ERR: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'ordernum' in where clause is ambiguous
+
+[ 2016-06-17T14:43:08+08:00 ] 182.40.180.223 /admin.php?m=admin&c=order&a=exports&order_num=1FYiYp7wGSzjvg7l8pOulGdWMcwpDxPu
+ERR: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'ordernum' in where clause is ambiguous
+
+[ 2016-06-17T15:01:53+08:00 ] 182.40.180.223 /admin.php?m=admin&c=order&a=exports&order_num=1FYiYp7wGSzjvg7l8pOulGdWMcwpDxPu
+ERR: Cell coordinate can not be zero-length string
+
+[ 2016-06-17T15:03:24+08:00 ] 182.40.180.223 /admin.php?m=admin&c=order&a=exports&order_num=1FYiYp7wGSzjvg7l8pOulGdWMcwpDxPu
+ERR: Cell coordinate can not be zero-length string
+
+[ 2016-06-17T15:05:34+08:00 ] 182.40.180.223 /admin.php?m=admin&c=order&a=exports&order_num=1FYiYp7wGSzjvg7l8pOulGdWMcwpDxPu
+ERR: Cell coordinate can not be zero-length string
+

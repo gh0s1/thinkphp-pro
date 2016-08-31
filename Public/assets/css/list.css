@@ -1,0 +1,142 @@
+body{
+	font-size: 1.2em;
+	font-family: "微软雅黑";
+}
+.headerbg{
+	background: #1e201f;
+}
+.fanhui{
+	font-size: 16px;
+}
+#iconLeft{
+	font-size:15px;
+	vertical-align: 1%;
+}
+.listDiv{
+	border-bottom: 1px solid #E8E8E8;
+	padding:.8em 0;
+	overflow: hidden;
+}
+.listAuto{
+	margin:0 auto;
+	width:95%;
+}
+.listLeft{
+	width:90px;
+	float:left;
+	border:1px solid #ffffff;
+}
+	.listDiv,.listLeft img{
+		width:100%;
+	}
+.listRight{
+	margin-left:100px;
+}
+	.listRight h3{
+		font-size:1.25em;
+		margin: 0 0 0 0.4rem;
+	}
+	#fontw{
+		font-size:0.6em;
+		line-height: 2.2em;
+		float:right;
+		color:#878787;
+		font-weight: 0;
+	}
+		.youhuimg{
+			width:10%;
+			float:left;
+		}
+		.youhuimg img{
+			width:20px;
+		}
+		.youhui font{
+			font-size:1.1em;
+			color:#545454;
+		}
+
+/**
+ * 商城详情
+ */
+
+.dtxq{ 
+	margin:0px;
+ }
+ 	.dtxq h2{
+ 		color:#b50005;
+ 		margin:1rem 0rem 1rem 1rem;
+ 	}
+ 	.dtxqRight{
+ 		float:right;
+ 		font-size: .6em;
+ 		margin-right:1rem;
+ 	}
+ 	.dtxqRight font{
+ 		color:#8e8e8e;
+ 	}
+ 	.dtxqli{
+ 		padding:0.5rem 0 0.5rem 1rem;
+ 	}
+ 	.dtxq li,#yhdp{
+ 		color:#545454;
+ 	}
+ 		#yhdpfont{
+ 			font-size:.6em;
+ 			line-height:2rem;
+ 			color:#545454;
+ 			margin-right:1rem;
+ 		}
+ 	.bottom{
+ 		border-top:1px solid #EFEFEF;
+ 		position: fixed;
+ 		bottom: 0px;
+ 		left:0px;
+		z-index: 999999999;
+		background: #ffffff;
+ 	}
+ 		.bottom h2,.bottom h2 a{
+ 			color:#b50005;
+ 			text-align: center;
+ 			padding:1rem 0;
+ 			margin:0;
+ 		}
+
+.pl{
+	margin:1rem 0;
+}
+.ltImg{
+	float:right;
+	width:40px;
+	height:40px;
+}
+.ltDiv{
+	border:1px solid #DEDEDE;
+}
+	.ltDiv p{
+		padding:0rem 0rem 0rem 1rem;
+		margin:1rem 0;
+	}
+	.ltDiv span{
+		margin:0rem 0rem 0rem 1rem;
+	}
+	.ltTop{
+		background: #F8F8F8;
+		width:100%;
+	}	
+	.ltTop h2{
+		padding:0.5rem 0 0.5rem 1rem;
+		color:#77778B;
+	}
+.pltop{
+	margin-bottom: 6rem;
+}
+.ac{
+	margin:5rem 0 0 0 auto;
+	width:95%;
+}
+
+
+
+
+
+

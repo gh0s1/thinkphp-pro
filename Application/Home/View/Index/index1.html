@@ -1,0 +1,264 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+
+  <!-- Set render engine for 360 browser -->
+  <meta name="renderer" content="webkit">
+
+  <!-- No Baidu Siteapp-->
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+  <link rel="icon" type="image/png" href="__PUBLIC__/assets/i/favicon.png">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="__PUBLIC__/assets/i/app-icon72x72@2x.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" href="__PUBLIC__/assets/i/app-icon72x72@2x.png">
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+
+
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/app.css">
+  
+</head>
+<body>
+ 
+ <header data-am-widget="header" class="am-header am-header-default">
+	  <div class="am-header-left am-header-nav">
+          <a href="#left-link" class="">
+              <span class="am-header-nav-title">
+                附近
+              </span>
+
+                <i class="am-header-icon am-icon-home"></i>
+          </a>
+      </div>
+
+      <h1 class="am-header-title">
+       
+      </h1>
+	  
+      <div class="am-header-right am-header-nav">
+          <a href="#right-link" class="">
+              <span class="am-header-nav-title">
+                列表
+              </span>
+              <i class="am-header-icon am-icon-bars"></i>
+          </a>
+      </div>
+  </header>
+
+   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=pSMU9ATyDa8KCUAhAonEFMhGwPGfdsrR"></script>
+
+    <style>
+		#infos
+		{
+			position:absolute;
+			width:100%;
+			height:200px;
+			z-index:10000;
+			bottom:0px;
+			background:white;
+			display:none;
+		}
+    </style>
+  
+  <div style="position:fixed;height:100%" id="allmap" data-am-widget="map" class="" data-name="" data-address="" data-longitude="" data-latitude="" data-scaleControl="" data-zoomControl="true" data-setZoom="17" data-icon="http://amuituku.qiniudn.com/mapicon.png">
+
+  </div>
+	<script src="__PUBLIC__/assets/js/jquery.min.js"></script>
+	<script>
+		function nav(obj){			
+			var mylat = $(obj).attr("mylat");
+			var mylng = $(obj).attr("mylng");
+			var des_lat = $(obj).attr("des_lat");
+			var des_lng = $(obj).attr("des_lng");
+			var pilename = $(obj).attr("pilename");
+			var positions = $(obj).attr("positions");
+			var url = "http://api.map.baidu.com/direction?origin=latlng:"+mylat+","+mylng+"|name:&destination=latlng:"+des_lat+","+des_lng+"|name:"+positions+"&mode=driving&region=青岛市&output=html&src=ezr";
+			location.href=url;
+		}
+	</script>
+  	
+	<div class="am-g" id="infos">
+		<div class="am-u-sm-12">
+			<ul class="am-list" style="line-height:40px;">
+			  <li>
+					名称 : <span id="pilename"></span> 
+					<button type="button" class="am-btn am-btn-primary am-btn-xs am-round" id="navs" mylng="" mylat="" des_lng="" des_lat="" pilename="" positions="" style="float:right;margin-top:5px;" onclick="nav(this)">导航</button>
+			  </li>
+			  
+			  <li>
+				 类型 : <span id="type"></span>
+			  </li>
+			  
+			  <li>
+					地址 : <span id="positions"></span>
+					<span style="float:right" id="distance"></span>
+			  </li>
+			</ul>
+		</div>
+	</div>
+  
+<script src="__PUBLIC__/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="__PUBLIC__/assets/js/amazeui.min.js"></script>
+
+
+<script type="text/javascript">
+	$(function(){
+		resize();
+		$(window).resize(function(){
+			resize();
+		});
+	});
+	function resize(){
+		
+		$('#allmap').css('height',$(window).height());
+	}
+</script>
+
+  <script type="text/javascript">
+
+   </script>
+<script>
+	$(function(){
+			var map = new BMap.Map("allmap");
+            var geolocation = new BMap.Geolocation();
+            geolocation.getCurrentPosition(
+                function(r){
+                    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                        var mk = new BMap.Marker(r.point);
+                        map.addOverlay(mk);
+                        map.panTo(r.point);
+                        mylng = r.point.lng;
+                        mylat = r.point.lat;
+						list_map_Drop(mylat,mylng);
+                    }
+                    else {
+                        alert('failed'+this.getStatus());
+                    }        
+                },
+                {enableHighAccuracy: true}
+			);
+			
+			var points = eval({$points});
+			var data_info = new Array();
+			var opts = 
+			{
+				width : 250,     // 信息窗口宽度
+				height: 80,     // 信息窗口高度
+				title : "信息窗口" , // 信息窗口标题
+				enableMessage:true//设置允许信息窗发送短息
+			};
+			function list_map_Drop(myLat,myLng)
+			{
+				var map = new BMap.Map("allmap");
+				var mypoint = new BMap.Point(myLng,myLat);
+				var mymarker = new BMap.Marker(mypoint);  // 创建标注 
+				map.addOverlay(mymarker);// 将标注添加到地图中
+				map.centerAndZoom(mypoint, 16);
+				map.enableScrollWheelZoom();
+				
+				map.addEventListener("dragend", function(){ 
+					$("#infos").css("display","none");
+				});
+				
+				for(i=0;i<points.length;i++){
+					data_info[i] = new Array();
+					k=0;
+					for(j in points[i])
+					{
+						if(j == 'lng' || j == 'lat')
+						{
+							data_info[i][k] = parseFloat(points[i][j]);
+						}
+						else
+						{
+							data_info[i][k] = points[i][j];
+						}
+						k++;
+					}   
+				}
+				
+				for(var i=0;i<data_info.length;i++)
+				{		
+						var des_lng  = data_info[i][0];
+						var des_lat = data_info[i][1];
+						var type  = data_info[i][5];
+						var pilename = data_info[i][2];
+						var positions = data_info[i][4];
+						var imgurl = data_info[i][3];
+						
+						var pt = new BMap.Point(des_lng,des_lat);
+						var myIcon = new BMap.Icon("http://lxc.weixinmingpai.com/"+data_info[i][3], new BMap.Size(30,30));
+						
+						var marker = new BMap.Marker(pt,{icon:myIcon});  // 创建标注 
+						//var marker = new BMap.Marker(pt);
+						var content = data_info[i][4]+" : "+data_info[i][2];
+						map.addOverlay(marker);  // 将标注添加到地图中
+						addClickHandler(map,content,marker,myLat,myLng,des_lng,des_lat,type,pilename,positions);
+				} 
+			}
+			
+			function addClickHandler(map,content,marker,myLat,myLng,des_lng,des_lat,type,pilename,positions)
+			{
+				marker.addEventListener("click",function(e){
+					openInfo(map,content,e,myLat,myLng,des_lng,des_lat,type,pilename,positions)}
+				);
+			}
+
+			function openInfo(map,content,e,myLat,myLng,des_lng,des_lat,type,pilename,positions)
+			{
+				var p = e.target;
+				var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+				map.centerAndZoom(point, 16);
+				var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+				//map.openInfoWindow(infoWindow,point); //开启信息窗口
+				$("#infos").css("display","block");
+				$("#pilename").text(pilename);
+				$("#type").text(type);
+				$("#positions").text(positions);
+				//$("#navs").attr({mylat:myLat,mylng:myLng,des_lng:des_lng,des_lat:des_lat,pilename:pilename,positions:positions});
+				$("#navs").attr("mylat",myLat);
+				$("#navs").attr("mylng",myLng);
+				$("#navs").attr("des_lng",des_lng);
+				$("#navs").attr("des_lat",des_lat);
+				$("#navs").attr("pilename",pilename);
+				$("#navs").attr("positions",positions);
+				
+				$.post(
+					
+					"{:U('index/get_map_distance')}",
+					{
+						myLat : myLat,
+						myLng : myLng,
+						des_lat : des_lat,
+						des_lng : des_lng
+					},
+					function data(data)
+					{
+						$("#distance").text(data);
+					},
+					'text'
+				);
+			}
+	});
+</script>
+</body>
+</html>
+

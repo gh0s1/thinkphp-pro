@@ -1,0 +1,33 @@
+[ 2016-06-24T11:20:27+08:00 ] 122.4.126.89 /admin.php?m=admin&c=pile&a=edit
+ERR: 模板不存在:./Application/Admin/View/Pile/edit.html
+
+[ 2016-06-24T11:20:41+08:00 ] 122.4.126.89 /admin.php?m=admin&c=pile&a=edit
+ERR: 模板不存在:./Application/Admin/View/Pile/edit.html
+
+[ 2016-06-24T11:20:42+08:00 ] 122.4.126.89 /admin.php?m=admin&c=pile&a=edit
+ERR: 模板不存在:./Application/Admin/View/Pile/edit.html
+
+[ 2016-06-24T11:20:42+08:00 ] 122.4.126.89 /admin.php?m=admin&c=pile&a=edit
+ERR: 模板不存在:./Application/Admin/View/Pile/edit.html
+
+[ 2016-06-24T11:20:44+08:00 ] 122.4.126.89 /admin.php?m=admin&c=pile&a=edit
+ERR: 模板不存在:./Application/Admin/View/Pile/edit.html
+
+[ 2016-06-24T11:43:51+08:00 ] 122.4.126.89 /admin.php?m=admin&c=pile&a=type&flag=edit&id=1
+ERR: 模板不存在:./Application/Admin/View/Pile/type_edit.html
+
+[ 2016-06-24T14:23:27+08:00 ] 122.4.126.89 /admin.php?m=admin&c=pile&a=index
+ERR: Think\Model:filed方法不存在！
+
+[ 2016-06-24T15:36:14+08:00 ] 122.4.126.89 /admin.php?m=admin&c=pile&a=edit
+ERR: SQLSTATE[HY000]: General error: 1364 Field 'rat' doesn't have a default value
+
+[ 2016-06-24T15:36:26+08:00 ] 122.4.126.89 /admin.php?m=admin&c=pile&a=edit
+ERR: SQLSTATE[HY000]: General error: 1364 Field 'rat' doesn't have a default value
+
+[ 2016-06-24T15:36:44+08:00 ] 122.4.126.89 /admin.php?m=admin&c=pile&a=edit
+ERR: SQLSTATE[HY000]: General error: 1364 Field 'rat' doesn't have a default value
+
+[ 2016-06-24T15:54:05+08:00 ] 122.4.126.89 /admin.php?m=admin&c=pile&a=edit
+ERR: Think\Controller:succss方法不存在！
+

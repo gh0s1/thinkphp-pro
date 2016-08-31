@@ -1,0 +1,225 @@
+    <include file="Public/header" title="后台主页" />
+            
+            <style>
+                td 
+                {
+                    font-size: 14px;
+                    font-weight: bold
+                }
+            </style>
+
+            <div id="page-wrapper">
+
+                <div class="row">
+                        <div class="col-lg-12">
+
+                                <form role="form">
+                                        <div class="form-group">
+                                            <label for="name">充电桩名称</label>
+                                            <input type="text" class="form-control" id="name" name="pilename">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">位置</label>
+                                            <input type="text" class="form-control" id="name" name="positions">
+                                        </div>
+
+                                        <div class="form-group">
+
+                                                <table class="table" style="border:solid 1px #CCCCCC;">
+                                                   <tbody>
+                                                      <tr>
+                                                         <td>经度</td>
+                                                         <td>
+                                                                <input type="text" class="form-control" id="lng" name="lng">
+                                                         </td>
+                                                         
+                                                         <td>纬度</td>
+                                                         <td>
+                                                                <input type="text" class="form-control" id="lat"  name="lat">
+                                                         </td>
+
+                                                         <td style="width:20%">
+                                                            <span>从地图中拾取</span>
+                                                            <button class="btn btn-success" data-toggle="modal" data-target="#myModal" style="float:right">
+                                                                    拾取
+                                                            </button>
+                                                          </td> 
+
+                                                      </tr>
+
+                                                   </tbody>
+                                                </table>
+
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <label for="name">标注类型</label>
+                                               <select class="form-control" name="type">
+                                                 <option>1</option>
+                                                 <option>2</option>
+                                                 <option>3</option>
+                                              </select>
+
+                                        </div>
+
+                                        <button type="submit" class="btn btn-default">提交</button>
+                                </form>
+
+                        </div>
+                </div>
+            </div>
+
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  
+                   <div class="modal-dialog" style="width:80%;">
+                          
+                          <div class="modal-content">
+                             <div class="modal-header">
+                                <button type="button" class="close" 
+                                   data-dismiss="modal" aria-hidden="true">
+                                      &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    <span>位置坐标拾取</span>
+                                    <!--
+                                    <span style="float:right;margin-right:10px;">
+                                        检索:
+                                        <span id="r-result"><input type="text" id="suggestId" size="20" /></span>
+                                        <div id="searchResultPanel" style="margin-left:46px;border:1px solid #C0C0C0;width:223px;height:auto;display:none"></div>
+                                    </span>
+                                    -->
+
+                                </h4>
+                             </div>
+
+                             <div class="modal-body" id="allmap" style="width:100%;height:550px">
+                                        
+                             </div>
+
+                             <div class="modal-footer">
+                                <button type="button" class="btn btn-success"  data-dismiss="modal">
+                                        确定
+                                </button>
+                                <!--
+                                <button type="button" class="btn btn-primary">
+                                       提交更改
+                                </button>
+                                -->
+                             </div>
+
+                      </div>
+
+            </div>
+
+    <include file="Public/footer" />
+    <!--
+    <div style="/*float:right;margin-right:10px;*/position:absolute;top:50px;right:20px;z-index:100;">
+        检索:
+        <span id="r-result"><input type="text" id="suggestId" size="20" /></span>
+        <div  id="searchResultPanel" style="position:absolute;top:80px;left:46px;border:1px solid #C0C0C0;width:223px;height:auto;display:none;z-index:100;"></div>
+    </div>
+    -->
+     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=pSMU9ATyDa8KCUAhAonEFMhGwPGfdsrR"></script>
+    
+    <script type="text/javascript">
+            var a ;
+            var map = new BMap.Map("allmap"); 
+            //var point = new BMap.Point(120.414741,36.096392);
+           
+            map.centerAndZoom("青岛", 16);
+            map.enableScrollWheelZoom();
+            
+            // var traffic = new BMap.TrafficLayer();
+            //map.addTileLayer(traffic);
+            map.addEventListener("dragend", function(){ 
+
+                var center = map.getCenter(); 
+                //alert("地图中心点变更为：" + center.lng + ", " + center.lat); 
+            });
+            
+            map.addEventListener("click", function(e){  
+                //var a = "已选取"+e.point.lng + ", " + e.point.lat; 
+                //alert (a);
+                $("#lng").val(e.point.lng);
+                $("#lat").val(e.point.lat);
+                var a = "已选取"+e.point.lng + ", " + e.point.lat; 
+                alert (a);
+            });
+
+            /*
+            var opts = {type: BMAP_NAVIGATION_CONTROL_SMALL}
+            map.addControl(new BMap.NavigationControl()); 
+            var opts2 = {offset:new BMap.Size(300,20)}
+            map.addControl(new BMap.ScaleControl()); 
+            map.addControl(new BMap.OverviewMapControl()); 
+            map.addControl(new BMap.MapTypeControl()); 
+            map.setCurrentCity("郑州"); // 仅当设置城市信息时，MapTypeControl 的切换功能才能可用
+            */
+
+    </script>
+    
+<!--
+<script type="text/javascript">
+    // 百度地图API功能
+    function G(id) {
+        return document.getElementById(id);
+    }
+
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom("北京",12);                   // 初始化地图,设置城市和地图级别。
+
+    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+        {"input" : "suggestId"
+        ,"location" : map
+    });
+
+    ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+    var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }    
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+        
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }    
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+
+    var myValue;
+    ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+    var _value = e.item.value;
+        myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+        
+        setPlace();
+    });
+
+    function setPlace(){
+        map.clearOverlays();    //清除地图上所有覆盖物
+        function myFun(){
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            map.centerAndZoom(pp, 18);
+            map.addOverlay(new BMap.Marker(pp));    //添加标注
+        }
+        var local = new BMap.LocalSearch(map, { //智能搜索
+          onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }
+</script>
+-->
+
+
+
+
+
+

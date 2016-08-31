@@ -1,0 +1,352 @@
+<link rel="stylesheet" href="__PUBLIC__/assets/css/amazeui.min.css" />
+<link rel="stylesheet" href="__PUBLIC__/assets/css/app.css" />
+<link rel="stylesheet" href="__PUBLIC__/assets/css/style.css" />
+<style>
+		.m 
+		{
+			width: 40px;
+			height:15px;
+			line-height:15px;
+			font-size:12px;
+			text-align:center
+		}
+		
+		.b 
+		{
+			height: 100px;
+			border-bottom: solid 1px #a9a9a9
+		}
+		
+		.am-nav-tabs>li+li
+		{
+			margin-top:4px;
+		}
+		
+		.am-list>li 
+		{
+			border: 0px;
+			border-bottom: solid 1px #DDDDDD;
+		}
+		
+		.curr 
+		{
+			background:yellow;
+		}
+		
+		.as 
+		{
+			width: 40px; 
+			height:23px;
+			line-height:25px;
+		}
+	</style>
+	
+	<script>
+		function nav(id,lat,lng,title,content,mylat,mylng)
+		{
+			$.post(
+				"{:U('index/click')}",
+				{
+					id:id
+				}
+			);
+			
+			var url = "http://api.map.baidu.com/direction?origin=latlng:"+mylat+","+mylng+"|name:&destination=latlng:"+lat+","+lng+"|name:"+content+"&mode=driving&region=青岛市&output=html&src=ezr";
+			location.href=url;
+		}
+		
+		function sets(flag,id)
+		{
+			$.post(
+				"{:U('index/set')}",
+				{
+					flag : flag,
+					id : id
+				},
+				function data(data)
+				{
+					var obj = jQuery.parseJSON(data);
+					var flag = obj.flag;
+					
+					if(flag == 'likes')
+					{
+						alert(obj.info);
+					}
+					
+					if(flag == 'error')
+					{
+						alert(obj.info);
+					}
+				},
+				
+				'text'
+			);
+		}
+	</script>
+	
+	
+	<script>
+			function tags(id)
+			{
+				var myLng = {$myLng};
+				var myLat = {$myLat};
+				
+				$.post(
+					"{:U('index/lists')}",
+					{
+						myLng : myLng,
+						myLat : myLat,
+						tags  : true,
+						tagId : id
+					},
+					function data(data)
+					{
+						$("#pages").replaceWith("<div id='pages'>"+data+"</div>");
+					},
+					
+					'text'
+				);
+			}
+	</script>
+	
+	<div id="pages">
+	
+		<style>
+			table tr td
+			{
+				word-break:keep-all
+			}
+		</style>
+		<?php
+			$type = M("map_type");
+			$type_list = $type->order("id ASC")->select();
+			array_pop($type_list); 
+			$type_list = array(
+				$type_list[3],
+				$type_list[2],
+				$type_list[1]
+			);
+		?>
+		<table id="types" class="am-table am-table-bordered" style="margin-top:10px;border-right:0px;border-left:0px;">
+			<style>
+				.bgs
+				{
+					background:#DDDDDD;
+				}
+			</style>
+			<tr> 
+				<?php
+					$i=1;
+					foreach($type_list as $val):
+				?>
+					<?php
+						if($i == 1):
+					?>
+						<td  <?php if($tagId == $val['id']):?> class="bgs" <?php endif;?> style="width:25%;border-left:0px;text-align:center">
+							<a href="javascript:tags({$val['id']})" style="display:block;width:100%;font-weight:bold">{$val['type']}</a>
+						</td>
+					<?php
+						elseif($i == 4): 
+					?>
+						<td  <?php if($tagId == $val['id']):?> class="bgs" <?php endif;?> style="25%;border-right:0px;text-align:center">
+							<a href="javascript:tags({$val['id']})"  style="display:block;width:100%;font-weight:bold">{$val['type']}</a>
+						</td>
+					<?php
+						else:
+					?>
+						<td  <?php if($tagId == $val['id']):?> class="bgs" <?php endif;?> style="width:25%;text-align:center">
+							<a href="javascript:tags({$val['id']})"  style="display:block;width:100%;font-weight:bold">{$val['type']}</a>
+						</td>
+					<?php
+						endif;
+					?>
+					
+				<?php
+					$i++;
+					endforeach;
+				?>
+			</tr>
+		</table>
+		
+		<div class="am-g" style="margin-top:-20px;padding:10px">
+			<?php
+				foreach($rs as $val):
+			?>
+				  <div class="am-u-sm-7 b">
+						<table style="margin-top:18px;margin-left:-15px">
+								<tr>
+									<td>
+										<span class="am-icon-map-marker"></span>
+										<font class="qmAuto" style="white-spacing:nowrap">
+											{$val['pilename']}
+										</font>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<font style="margin-left:10px;font-size:12px;">{$val['type']}</font>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p style="margin-left:10px;margin-top:2px;font-size:11px;white-spacing:nowrap">{$val['positions']}</p> 
+									</td>
+								</tr>
+						</table>
+				  </div>
+					
+				  <div class="am-u-sm-4 b">
+						<style>
+							li   
+							{
+								margin-top:4px;
+							}
+							
+							.as 
+							{
+								width: 40px; 
+								height:23px;
+								line-height:25px;
+							}
+							.am-badge 
+							{
+								line-height:1.6
+							}
+							
+							.btn 
+							{
+								width:55px;
+								height:33px;
+								line-height:30px;
+								text-align:center
+							}
+							
+							a:visited
+							{
+								color : blue
+							}
+						</style>
+						
+						<table id="navsBtn" style="position:relative;top:25px;left:-25px;">
+							<tr>
+								<td>
+									<table style="line-height:25px;">
+										<tr>
+											<td><a class="am-badge am-badge-success am-badge-xs am-round as" style="background:#DDDDDD" href="javascript:sets('likes',{$val['id']})"><span>点赞</span></a></td>
+										</tr>
+										<tr>
+											<td><a class="am-badge am-badge-success am-badge-xs  am-round as" style="background:#DDDDDD" href="javascript:sets('error',{$val['id']})"><span>报错</span></a></td>
+										</tr>
+									</table>
+								</td>
+								<td>
+									<a class="am-btn am-btn-warning am-round btn" <?php if(in_array($val['id'],$clicked)):?> style="color:blue" <?php endif;?>onclick="nav({$val['id']},{$val['lat']},{$val['lng']},'{$val['pilename']}','{$val['positions']}',{$myLat},{$myLng})">
+										<span style="position:relative;left:-4px;top:-8px;">导航</span>
+									</a>
+								</td>
+							</tr>
+						</table>
+						
+				  </div>
+				  
+				  <div class="am-u-sm-1 b" style="white-spacing:nowrap">
+					<font style="float:right;margin-top:38px;margin-right:-10px;color:#727272">
+						<?php
+							$km = "km";
+							$m = "m";
+							if($val['distance'] >= 1000) {
+								
+								echo number_format(($val['distance'] / 1000),1).$km; 
+							}
+							
+							if($val['distance'] <= 100){
+								
+								echo "<100m"; 
+							}
+							
+							
+							if($val['distance'] > 100 && $val['distance'] < 1000){
+							
+								echo number_format($val['distance'],1).$m;
+							}
+								
+						?> 
+					</font>
+				  </div>
+			<?php
+				endforeach;
+			?>
+			
+		</div>
+
+		<div class="am-g">
+			 <div class="am-u-sm-12">
+				<ul class="am-pagination"> 
+					{$page_list}
+				</ul>
+			 </div>
+		</div>
+	</div>
+	
+	<script src="__PUBLIC__/assets/js/jquery.min.js"></script>
+	<?php
+		if(!$tagId):
+	?>
+	<script type="text/javascript">
+            
+			function pages(id)
+			{  
+                 var p = id;
+				 var myLat = {$myLat};
+				 var myLng = {$myLng};
+				$.post(
+					"{:U('index/lists')}",
+					{
+						'mypos': true,
+						'p':id,
+						'myLat' : myLat,
+						'myLng' : myLng
+					}, 
+					function data(data)
+					{  
+						$("#pages").replaceWith("<div id='pages'>"+data+"</div>");
+					}
+				);
+             }
+      
+    </script>
+	
+	<?php
+		else:
+	?>
+	<script type="text/javascript">
+            
+			function pages(id)
+			{  
+				 var tagId = {$tagId};
+                 var p = id;
+				 var myLat = {$myLat};
+				 var myLng = {$myLng};
+				$.post(
+					"{:U('index/lists')}",
+					{
+						'mypos': true,
+						'p':id,
+						'tags' : true,
+						'tagId' : tagId,
+						'myLat' : myLat,
+						'myLng' : myLng
+					}, 
+					function data(data)
+					{  
+						$("#pages").replaceWith("<div id='pages'>"+data+"</div>");
+					}
+				);
+             }
+      
+    </script>
+	
+	<?php
+		endif;
+	?>
+	
